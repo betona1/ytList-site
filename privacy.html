@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ytList — Privacy Policy</title>
+<style>
+  :root{--navy:#0f1f3d;--blue:#2563eb;--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc}
+  body{margin:0;font:15px/1.65 -apple-system,"Segoe UI",Roboto,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;color:var(--ink);background:#fff}
+  header{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px}
+  header .logo{width:30px;height:30px;border-radius:8px;background:var(--blue);display:grid;place-items:center;font-weight:800}
+  header b{font-size:18px} header a{color:#cbd5e1;font-size:13px;margin-left:auto}
+  main{max-width:860px;margin:0 auto;padding:32px 24px 64px}
+  h1{font-size:28px;margin:0 0 4px} .date{color:var(--muted);margin:0 0 24px}
+  h2{font-size:18px;margin:28px 0 8px}
+  .ko{color:var(--muted);font-size:14px;border-left:3px solid var(--line);padding-left:12px;margin:8px 0 0}
+  a{color:var(--blue)}
+  footer{max-width:860px;margin:0 auto;padding:16px 24px 40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header><div class="logo">▶</div><b>ytList</b><a href="./">← About</a></header>
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="date">Effective 2026-11-05 · 개인정보처리방침</p>
+
+  <p>ytList ("the Tool") is an internal application operated by our company for its employees. It is not offered to the public. This policy explains what data the Tool handles and how.</p>
+  <p class="ko">ytList("도구")는 당사 직원을 위한 사내 전용 애플리케이션이며 일반에 제공되지 않습니다. 이 문서는 도구가 어떤 데이터를 어떻게 다루는지 설명합니다.</p>
+
+  <h2>1. Data obtained from YouTube</h2>
+  <p>The Tool uses the YouTube Data API v3 to retrieve <b>public</b> information only: video metadata (ID, title, description, tags, thumbnail URL, publish date, duration, licence, category, default language), public channel metadata (ID, name, thumbnail URL, subscriber count) and public statistics (view, like and comment counts). It does not access any YouTube account, and it never requests user authorization (OAuth). No comments, subscriptions, watch history, playlists or other user data are collected.</p>
+  <p class="ko">YouTube Data API v3 로 <b>공개</b> 정보만 받습니다: 영상 메타데이터, 공개 채널 메타데이터, 공개 통계. YouTube 계정에 접근하지 않으며 사용자 인증(OAuth)을 요청하지 않습니다. 댓글·구독·시청기록·재생목록 등 사용자 데이터는 수집하지 않습니다.</p>
+
+  <h2>2. Retention</h2>
+  <p>Statistics (view, like and comment counts) are stored as time-series snapshots for <b>no longer than 30 days</b> and are deleted automatically by the collector, in accordance with the YouTube API Services Developer Policies. Video and channel metadata is kept so that lists can be filtered without repeated API calls, and is refreshed from the API when a video reappears in the chart. Data for videos that no longer appear in any chart is pruned periodically.</p>
+  <p class="ko">통계 스냅샷은 <b>최대 30일</b> 보관 후 수집기가 자동 삭제합니다. 영상·채널 메타데이터는 목록 필터링을 위해 보관하며 차트에 다시 나타나면 API 값으로 갱신됩니다.</p>
+
+  <h2>3. Data about employees who use the Tool</h2>
+  <p>The Tool has no sign-in and no user accounts. It sets no cookies and uses no analytics or tracking. Bookmarks and notes made in the Tool are stored on the internal server without any user identifier. The web server keeps standard access logs (internal IP address, request path, time) for operational purposes only, rotated within 30 days.</p>
+  <p class="ko">로그인·계정이 없고, 쿠키·분석 도구·추적을 쓰지 않습니다. 북마크·메모는 사용자 식별자 없이 사내 서버에 저장됩니다. 서버 접근 로그(사내 IP·경로·시각)는 운영 목적으로만 보관하며 30일 내 순환 삭제됩니다.</p>
+
+  <h2>4. Sharing and transfer</h2>
+  <p>Data is stored on a single server inside the company network. It is not sold, redistributed, published, transferred to third parties, merged with other data sources or used for advertising. The only external service the Tool communicates with is Google's YouTube Data API and the official YouTube IFrame Player.</p>
+  <p class="ko">데이터는 사내망의 서버 한 대에만 저장되며 판매·재배포·공개·제3자 제공·다른 데이터와의 결합·광고 이용을 하지 않습니다. 통신하는 외부 서비스는 YouTube Data API 와 공식 YouTube IFrame 플레이어뿐입니다.</p>
+
+  <h2>5. Security</h2>
+  <p>The Tool is reachable only from the internal network. The API key is kept in a server-side configuration file and is never shown in the interface or written to logs. Access to the server is limited to the administrators.</p>
+  <p class="ko">도구는 사내망에서만 접속되며, API 키는 서버 설정 파일에만 있고 화면·로그에 노출되지 않습니다. 서버 접근은 관리자에게 한정됩니다.</p>
+
+  <h2>6. Google and YouTube policies</h2>
+  <p>The Tool uses YouTube API Services. By using the Tool, employees agree to be bound by the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. Google's handling of data is described in the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. Because the Tool never accesses a user's YouTube account, there is no authorized data to revoke; the Tool holds no per-user Google data.</p>
+  <p class="ko">도구는 YouTube API 서비스를 사용하며, 사용자는 YouTube 서비스 약관에 동의하는 것으로 간주됩니다. 구글의 데이터 처리는 구글 개인정보처리방침을 따릅니다. 도구는 사용자의 YouTube 계정에 접근하지 않으므로 철회할 인가 데이터가 없습니다.</p>
+
+  <h2>7. Changes and contact</h2>
+  <p>Changes to this policy are published on this page with a new effective date. Questions: the project owner at <a href="https://github.com/betona1">github.com/betona1</a>.</p>
+  <p class="ko">변경 사항은 이 페이지에 시행일과 함께 게시합니다. 문의는 깃헙 프로젝트 소유자에게.</p>
+</main>
+<footer>ytList · internal tool · <a href="./">About</a> · <a href="terms.html">Terms of Use</a></footer>
+</body>
+</html>
