@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ytList — internal YouTube trend monitor</title>
+<meta name="description" content="ytList is an internal, non-public tool that shows the YouTube most-popular chart by region, category, language and licence. This page describes the tool, how it uses the YouTube Data API, and its data and privacy policy.">
+<style>
+  :root{--navy:#0f1f3d;--blue:#2563eb;--orange:#f97316;--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc}
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.65 -apple-system,"Segoe UI",Roboto,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;color:var(--ink);background:#fff}
+  header{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px}
+  header .logo{width:30px;height:30px;border-radius:8px;background:var(--blue);display:grid;place-items:center;font-weight:800}
+  header b{font-size:18px}
+  header span{color:#cbd5e1;font-size:13px}
+  main{max-width:960px;margin:0 auto;padding:32px 24px 64px}
+  h1{font-size:30px;line-height:1.25;margin:0 0 8px}
+  h2{font-size:20px;margin:40px 0 12px;padding-top:8px;border-top:1px solid var(--line)}
+  .lead{font-size:17px;color:var(--muted);margin:0 0 20px}
+  .tag{display:inline-block;background:#eff6ff;color:var(--blue);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700;margin-right:6px}
+  .warn{display:inline-block;background:#fff7ed;color:var(--orange);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}
+  table{border-collapse:collapse;width:100%;font-size:14px;margin:12px 0}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--bg);font-weight:700}
+  figure{margin:16px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)}
+  figure img{display:block;width:100%;height:auto}
+  figcaption{padding:8px 12px;font-size:13px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:720px){.grid{grid-template-columns:1fr}}
+  code{background:var(--bg);padding:1px 5px;border-radius:4px;font-size:13px}
+  .ko{color:var(--muted);font-size:14px}
+  footer{max-width:960px;margin:0 auto;padding:16px 24px 40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+  a{color:var(--blue)}
+</style>
+</head>
+<body>
+<header><div class="logo">▶</div><b>ytList</b><span>internal YouTube trend monitor · 사내 유튜브 실시간 인기 조회 도구</span></header>
+<main>
+  <h1>ytList — what it is</h1>
+  <p class="lead">An <b>internal, non-public</b> web tool used by employees of our company to see what is currently popular on YouTube, filtered by region, category, language, licence and format. It runs on a private network and is not reachable from the internet.</p>
+  <p><span class="tag">Internal use only</span><span class="tag">No end-user accounts</span><span class="tag">No redistribution</span><span class="warn">Not a public service</span></p>
+  <p class="ko">사내 직원만 쓰는 비공개 도구입니다. 유튜브 인기 차트를 국가·카테고리·언어·재사용 허용(CC)·롱폼/쇼츠로 걸러 봅니다. 사내망(192.168.x.x)에서만 접속되며 인터넷에 공개되지 않습니다. 이 페이지는 YouTube API 심사(감사·할당량 증량)를 위해 도구를 설명하는 소개 페이지입니다.</p>
+
+  <h2>Screens</h2>
+  <div class="grid">
+    <figure><img src="img/01-popular.png" alt="Most-popular list, card grid"><figcaption>1. Most-popular chart (Korea). Each card links back to the video on youtube.com.</figcaption></figure>
+    <figure><img src="img/02-filters.png" alt="Filters applied: category Music, Korea"><figcaption>2. Filters — sort, period, region, category, language, Creative Commons only, long-form / Shorts.</figcaption></figure>
+    <figure><img src="img/03-detail.png" alt="Detail modal with statistics and view-count trend"><figcaption>3. Detail modal — public statistics and a view-count trend from our 10-minute snapshots. ▶ opens the official YouTube IFrame player.</figcaption></figure>
+    <figure><img src="img/04-status.png" alt="Collection status page with quota usage"><figcaption>4. Collection status — per-run API unit usage and the daily quota budget. Collection stops automatically when the budget is reached.</figcaption></figure>
+  </div>
+
+  <h2 id="api">How we use the YouTube Data API v3</h2>
+  <table>
+    <tr><th>Endpoint</th><th>Purpose</th><th>Frequency</th></tr>
+    <tr><td><code>videos.list</code> <code>chart=mostPopular</code></td><td>The "most popular" chart per region and per video category — the core of the tool</td><td>Every 10–120 minutes depending on region</td></tr>
+    <tr><td><code>videoCategories.list</code></td><td>Category names per region</td><td>Once a day (cached)</td></tr>
+    <tr><td><code>channels.list</code></td><td>Subscriber count and channel thumbnail shown next to each video</td><td>Once a day per channel (cached)</td></tr>
+    <tr><td><code>search.list</code> <code>videoLicense=creativeCommon</code></td><td>Find reusable (CC BY) videos, which rarely appear in the chart</td><td>Once a day per region</td></tr>
+  </table>
+  <p>Quota usage is recorded per request in our database. When the configured daily budget is reached, collection stops until the quota resets. Playback always uses the official YouTube IFrame Player, and every item links to its page on youtube.com. We do not modify, hide or re-host any YouTube content, and we do not show ads.</p>
+  <p class="ko">쓰는 엔드포인트는 위 넷뿐입니다. 호출마다 유닛을 적립하고 하루 예산을 넘으면 수집이 자동으로 멈춥니다. 재생은 공식 IFrame 플레이어, 모든 항목은 youtube.com 으로 링크됩니다. 광고 없음.</p>
+
+  <h2 id="privacy">Data &amp; privacy policy</h2>
+  <table>
+    <tr><th>What we store</th><td>Public video metadata (video ID, title, description, tags, thumbnail URL, publish date, duration, licence, category, default language) and public channel metadata (channel ID, name, thumbnail URL, subscriber count).</td></tr>
+    <tr><th>Statistics</th><td>View, like and comment counts are kept as time-series snapshots for <b>at most 30 days</b> and are deleted automatically after that, in line with the YouTube API Services Developer Policies. Only the latest values are shown in the list.</td></tr>
+    <tr><th>What we do <u>not</u> collect</th><td>No YouTube user data of any kind — no comments, subscriptions, watch history, or personal information. The tool has no sign-in and no end-user accounts; employees use it anonymously on the internal network.</td></tr>
+    <tr><th>Sharing</th><td>Data is not sold, redistributed, published, merged with other services or used for advertising. It stays on one internal server.</td></tr>
+    <tr><th>Cookies / tracking</th><td>None. The tool sets no cookies and uses no analytics.</td></tr>
+    <tr><th>Third-party terms</th><td>By using the tool, employees agree to be bound by the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. Google's privacy policy applies to data processed by YouTube: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>.</td></tr>
+    <tr><th>Retention of API keys</th><td>The API key is stored only in a server-side environment file and is never shown in the UI or logs.</td></tr>
+    <tr><th>Contact</th><td>Questions about this tool or its data handling: the project owner on GitHub, <a href="https://github.com/betona1">github.com/betona1</a>.</td></tr>
+  </table>
+  <p class="ko">저장하는 것은 공개 영상·채널 메타데이터뿐이며, 조회수 등 통계 스냅샷은 30일 뒤 자동 삭제됩니다. 유튜브 사용자 데이터(댓글·구독·시청기록·개인정보)는 전혀 수집하지 않습니다. 로그인·쿠키·분석 도구 없음, 외부 제공·판매·광고 없음.</p>
+
+  <h2>Technical summary</h2>
+  <p>Python 3 / FastAPI backend with a SQLite database and a resident collector process; React front end. Source code is kept in a private repository. This page is static and served from GitHub Pages solely to describe the tool for API review purposes.</p>
+</main>
+<footer>ytList · internal tool · page last updated 2026-11-05 · 이 페이지는 YouTube API 심사용 소개 페이지이며 서비스 자체는 공개되지 않습니다.</footer>
+</body>
+</html>
